@@ -80,6 +80,7 @@ export default function Pics() {
       fetchDogs();
   }, []);
 
+  // Fetch favorite dogs saved in db
   function fetchFavorites() {
     fetch(api_url)
       .then(res => res.json())
@@ -92,6 +93,7 @@ export default function Pics() {
       .catch(() => setErrors(true))
   }
 
+  // Fetch random list of 10 dogs from api
   function fetchDogs() {
     fetch('https://dog.ceo/api/breeds/image/random/10')
       .then(res => res.json())
@@ -108,6 +110,7 @@ export default function Pics() {
     setType('favorite');
   }
 
+  // Fetch pics based on search
   function getPics() {
     if (inputRef.current) {
       fetch(`https://dog.ceo/api/breed/${inputRef.current.value}/images`)
@@ -120,6 +123,7 @@ export default function Pics() {
     }
   }
 
+  // Save liked pic to db
   async function likePic(pic) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
