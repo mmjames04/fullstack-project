@@ -84,10 +84,10 @@ export default function Pics() {
     fetch(api_url)
       .then(res => res.json())
       .then(res => {
-        let dogs = [];
-        res.map(dog => 
-          setFavorites(dogs.concat(dog.url))
-        )
+        let dogs = res.map((dog) => {
+          return dog.url;
+        })
+        setFavorites(dogs);
       })
       .catch(() => setErrors(true))
   }
