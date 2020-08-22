@@ -28,28 +28,20 @@ class Api::V1::FavoritesController < ApplicationController
   def create
     @favorite = Favorite.new(favorite_params)
 
-    respond_to do |format|
-      if @favorite.save
-        format.html { redirect_to @favorite, notice: 'Favorite was successfully created.' }
-        format.json { render :show, status: :created, location: @favorite }
-      else
-        format.html { render :new }
-        format.json { render json: @favorite.errors, status: :unprocessable_entity }
-      end
+    if @favorite.save
+      render json: @favorite, status: :created, location: api_v1_favorites_path(@favorite)
+    else
+      render json: @favorite.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /favorites/1
   # PATCH/PUT /favorites/1.json
   def update
-    respond_to do |format|
-      if @favorite.update(favorite_params)
-        format.html { redirect_to @favorite, notice: 'Favorite was successfully updated.' }
-        format.json { render :show, status: :ok, location: @favorite }
-      else
-        format.html { render :edit }
-        format.json { render json: @favorite.errors, status: :unprocessable_entity }
-      end
+    if @favorite.update(favorite_params)
+      render json: @favorite
+    else
+      render json: @favorite.errors, status: :unprocessable_entity
     end
   end
 
